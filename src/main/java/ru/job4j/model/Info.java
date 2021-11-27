@@ -1,9 +1,8 @@
 package ru.job4j.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "info")
@@ -14,7 +13,10 @@ public class Info {
 
     private String description;
 
-    private String photo;
+    private boolean photo;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
 
     @ManyToOne
     @JoinColumn(name = "car_id", nullable = false)
@@ -24,10 +26,11 @@ public class Info {
     @JoinColumn(name = "bodyType_id", nullable = false)
     private Body body;
 
-    public static Info of(String description, String photo, Car car, Body body) {
+    public static Info of(String description, boolean photo, Car car, Body body) {
         Info info = new Info();
         info.description = description;
         info.photo = photo;
+        info.created = new Date(System.currentTimeMillis());
         info.car = car;
         info.body = body;
         return info;
@@ -49,12 +52,16 @@ public class Info {
         this.description = description;
     }
 
-    public String getPhoto() {
+    public boolean isPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
     public Car getCar() {
@@ -91,7 +98,8 @@ public class Info {
         return "Info{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
-                ", photo='" + photo + '\'' +
+                ", photo=" + photo +
+                ", created=" + created +
                 ", car=" + car +
                 ", body=" + body +
                 '}';

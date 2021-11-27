@@ -12,7 +12,8 @@ create table bodyType (
 create table info (
     id serial primary key,
     description varchar(255),
-    photo varchar(255),
+    photo boolean,
+    created Date,
     car_id int references car(id),
     bodyType_id int references bodyType(id)
 );

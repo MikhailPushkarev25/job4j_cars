@@ -26,7 +26,7 @@ public class HbmRun {
          User user = User.of("Mikhail", "mikhail@mail.ru", "123");
          session.save(user);
 
-         Info info = Info.of("Информация об автомобиле владельца", "photo", car, body);
+         Info info = Info.of("Информация об автомобиле владельца", true, car, body);
          session.save(info);
 
          session.getTransaction().commit();
